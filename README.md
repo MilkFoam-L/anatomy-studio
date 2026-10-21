@@ -15,10 +15,7 @@
 
 [**在线使用**](https://milkfoam-l.github.io/anatomy-studio/) · [赞助商](#赞助商) · [功能](#功能) · [快速开始](#快速开始) · [工作原理](#工作原理) · [部署](#部署) · [常见问题](#常见问题) · [参与贡献](#参与贡献)
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshot-dark.png">
-  <img alt="Anatomy Studio 界面：左侧描述概念，右侧是可交互的等距机械图解" src="docs/screenshot-light.png" width="900">
-</picture>
+<img alt="Anatomy Studio 生成中：左侧描述概念，中间是工作日志，右侧检查台实时截图自检" src="docs/screenshot-running.png" width="900">
 
 </div>
 
