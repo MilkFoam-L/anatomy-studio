@@ -13,9 +13,7 @@
 ![React 19](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
 ![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
 
-[**在线使用**](https://milkfoam-l.github.io/anatomy-studio/) · [功能](#功能) · [快速开始](#快速开始) · [工作原理](#工作原理) · [部署](#部署) · [常见问题](#常见问题) · [赞助商](#赞助商) · [参与贡献](#参与贡献)
-
-<sub>赞助商 · <a href="https://www.apophis.uk/"><b>ApophisCode</b></a> — 多模型接入，专注 AI 编程与应用开发</sub>
+[**在线使用**](https://milkfoam-l.github.io/anatomy-studio/) · [赞助商](#赞助商) · [功能](#功能) · [快速开始](#快速开始) · [工作原理](#工作原理) · [部署](#部署) · [常见问题](#常见问题) · [参与贡献](#参与贡献)
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshot-dark.png">
@@ -25,6 +23,27 @@
 </div>
 
 > **English** — Anatomy Studio is a static web app that runs the open-source Anatomy skill entirely in your browser. Bring your own Claude API key and endpoint (official or any relay), describe a concept, and get an interactive isometric diagram. No backend, no account, no data leaves your browser except the model requests you configure.
+
+## 赞助商
+
+<table>
+  <tr>
+    <td width="190" align="center">
+      <a href="https://www.apophis.uk/" target="_blank" rel="noopener noreferrer">
+        <img src="docs/sponsors/apophiscode.png" alt="ApophisCode" width="120">
+      </a>
+      <br>
+      <b>ApophisCode</b>
+    </td>
+    <td>
+      <b><a href="https://www.apophis.uk/" target="_blank" rel="noopener noreferrer">ApophisCode</a></b>｜<b>多模型接入，专注 AI 编程与应用开发</b><br><br>
+      为开发者提供灵活的 AI API 接入服务，支持 <b>Claude、OpenAI、Gemini、Grok、DeepSeek、GLM</b> 等主流模型，适配 <b>Claude Code、Codex</b> 等 AI 编程工具。兼容多种主流 API 协议，配合<b>多线路调度与故障切换</b>，减少接入和维护的繁琐；调用用量、Token 消耗与费用明细清晰可查，支持独立 API Key 管理和额度控制。<br><br>
+      Anatomy Studio 的「服务商」默认预设 ApophisCode（<code>https://speed.apophis.uk</code>），<a href="https://www.apophis.uk/" target="_blank" rel="noopener noreferrer">注册获取 API Key</a> 后填入即可使用。少折腾接口，多专注创造。
+    </td>
+  </tr>
+</table>
+
+> 赞助不影响使用：设置里随时可以改用 Anthropic 官方或你自己的中转站，本站不会把你的请求转发到任何第三方。
 
 ---
 
@@ -162,19 +181,6 @@ BASE_PATH=/anatomy-studio/ npm run build
 - 截图基于 DOM 渲染，个别网络字体可能显示为回退字体。
 - 每次截图检查时主线程会停顿约 0.2 秒，这是浏览器内做 DOM 截图本身的开销。
 </details>
-
-## 赞助商
-
-<table>
-  <tr>
-    <td>
-      <a href="https://www.apophis.uk/"><b>ApophisCode</b></a> · 多模型接入，专注 AI 编程与应用开发<br>
-      <sub>为开发者提供灵活的 AI API 接入：支持 Claude、OpenAI、Gemini、Grok、DeepSeek、GLM 等主流模型，适配 Claude Code、Codex 等编程工具，兼容多种主流 API 协议；多线路调度与故障切换，用量、Token 与费用明细清晰可查，支持独立 API Key 管理和额度控制。</sub>
-    </td>
-  </tr>
-</table>
-
-Anatomy Studio 的「服务商」默认预设 ApophisCode（`https://speed.apophis.uk`，Anthropic 与 OpenAI 兼容协议均可用）。赞助不影响使用：随时可以改用 Anthropic 官方或你自己的中转站，本站不会把你的请求转发到任何第三方。
 
 ## 参与贡献
 
