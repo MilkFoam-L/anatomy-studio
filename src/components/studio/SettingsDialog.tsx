@@ -43,6 +43,7 @@ function SponsorCard() {
   return (
     <aside aria-label="赞助商" className="grid gap-1.5 rounded-md border border-signal/30 bg-signal/5 p-3">
       <div className="flex flex-wrap items-center gap-2">
+        <img src={SPONSOR.logo} alt="" width={28} height={28} className="size-7 rounded-md bg-white object-contain" />
         <span className="text-sm font-semibold">{SPONSOR.name}</span>
         <Badge variant="outline" className="border-signal/40 text-signal">赞助</Badge>
         <a href={SPONSOR.site} target="_blank" rel="noopener noreferrer sponsored" className={buttonVariants({ variant: "outline", size: "xs", className: "ml-auto" })}>

@@ -5,6 +5,7 @@ export const SPONSOR = {
   name: "ApophisCode",
   site: "https://www.apophis.uk/",
   baseUrl: "https://speed.apophis.uk",
+  logo: `${import.meta.env.BASE_URL}sponsors/apophiscode.png`,
   tagline: "多模型接入，专注 AI 编程与应用开发",
   blurb: "支持 Claude、OpenAI、Gemini、Grok、DeepSeek、GLM 等模型，兼容 Anthropic 与 OpenAI 协议，多线路调度与故障切换，用量、Token 与费用明细清晰可查。",
 } as const;

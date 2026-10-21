@@ -131,9 +131,10 @@ export default function App() {
               （MIT）。本站为纯静态页面，密钥只保存在你的浏览器。
             </p>
             <p className="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <span>
-                赞助商{" "}
-                <a className="font-medium text-foreground underline underline-offset-4 hover:text-signal" href={SPONSOR.site} target="_blank" rel="noopener noreferrer sponsored">
+              <span className="inline-flex items-center gap-1.5">
+                赞助商
+                <a className="inline-flex items-center gap-1.5 font-medium text-foreground underline underline-offset-4 hover:text-signal" href={SPONSOR.site} target="_blank" rel="noopener noreferrer sponsored">
+                  <img src={SPONSOR.logo} alt="" width={16} height={16} className="size-4 rounded-sm bg-white object-contain" />
                   {SPONSOR.name}
                 </a>
                 <span className="hidden sm:inline"> · {SPONSOR.tagline}</span>
