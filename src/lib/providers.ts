@@ -7,10 +7,10 @@ export const SPONSOR = {
   baseUrl: "https://speed.apophis.uk",
   logo: `${import.meta.env.BASE_URL}sponsors/apophiscode.png`,
   tagline: "多模型接入，专注 AI 编程与应用开发",
-  blurb: "支持 Claude、OpenAI、Gemini、Grok、DeepSeek、GLM 等模型，兼容 Anthropic 与 OpenAI 协议，多线路调度与故障切换，用量、Token 与费用明细清晰可查。",
+  blurb: "支持 Claude、OpenAI（ChatGPT）、Gemini、Grok、DeepSeek、GLM 等模型，Anthropic 与 OpenAI 兼容协议都能直接用，多线路调度与故障切换，用量、Token 与费用明细清晰可查。",
 } as const;
 
-export type PresetId = "sponsor" | "anthropic" | "custom";
+export type PresetId = "sponsor" | "custom";
 
 export interface Preset {
   id: Exclude<PresetId, "custom">;
@@ -21,7 +21,6 @@ export interface Preset {
 
 export const PRESETS: Preset[] = [
   { id: "sponsor", label: SPONSOR.name, baseUrl: SPONSOR.baseUrl, protocols: ["anthropic", "openai"] },
-  { id: "anthropic", label: "Anthropic 官方", baseUrl: "https://api.anthropic.com", protocols: ["anthropic"] },
 ];
 
 const origin = (url: string) => {

@@ -35,12 +35,12 @@
     <td>
       <b><a href="https://www.apophis.uk/" target="_blank" rel="noopener noreferrer">ApophisCode</a></b>｜<b>多模型接入，专注 AI 编程与应用开发</b><br><br>
       为开发者提供灵活的 AI API 接入服务，支持 <b>Claude、OpenAI、Gemini、Grok、DeepSeek、GLM</b> 等主流模型，适配 <b>Claude Code、Codex</b> 等 AI 编程工具。兼容多种主流 API 协议，配合<b>多线路调度与故障切换</b>，减少接入和维护的繁琐；调用用量、Token 消耗与费用明细清晰可查，支持独立 API Key 管理和额度控制。<br><br>
-      Anatomy Studio 的「服务商」默认预设 ApophisCode（<code>https://speed.apophis.uk</code>），<a href="https://www.apophis.uk/" target="_blank" rel="noopener noreferrer">注册获取 API Key</a> 后填入即可使用。少折腾接口，多专注创造。
+      Anatomy Studio 的「服务商」默认预设 ApophisCode（<code>https://speed.apophis.uk</code>，Anthropic 与 OpenAI 兼容协议都可用，Claude、ChatGPT 等模型随选），<a href="https://www.apophis.uk/" target="_blank" rel="noopener noreferrer">注册获取 API Key</a> 后填入即可使用。少折腾接口，多专注创造。
     </td>
   </tr>
 </table>
 
-> 赞助不影响使用：设置里随时可以改用 Anthropic 官方或你自己的中转站，本站不会把你的请求转发到任何第三方。
+> 赞助不影响使用：设置里随时可以选「自定义」，改用官方接口或你自己的中转站，本站不会把你的请求转发到任何第三方。
 
 ---
 
@@ -51,7 +51,7 @@
 | | |
 |---|---|
 | 🧱 **零后端** | 纯静态文件，部署到 GitHub Pages、Cloudflare Pages 或任意静态托管。请求从浏览器直接发往你填写的接口。 |
-| 🔑 **自带接口** | 内置赞助商 ApophisCode 预设，也可以切到 Anthropic 官方或任意自定义站点。支持 Anthropic Messages（`/v1/messages`，推荐）和 OpenAI 兼容（`/v1/chat/completions`）两种协议。两套配置（地址、Key、模型）分开保存，切换时互不覆盖；可以从接口拉取模型列表。 |
+| 🔑 **自带接口** | 内置赞助商 ApophisCode 预设（Anthropic 与 OpenAI 兼容协议都可用，支持 Claude、ChatGPT 等模型），也可以选「自定义」填任意站点。支持 Anthropic Messages（`/v1/messages`，推荐）和 OpenAI 兼容（`/v1/chat/completions`）两种协议。两套配置（地址、Key、模型）分开保存，切换时互不覆盖；可以从接口拉取模型列表。 |
 | 🧪 **skill 原样运行** | 系统提示词直接用 `SKILL.md` 原文；`node build.mjs` 和 `--audit` 几何审计都在浏览器里真实执行，产物与本地 Node 逐字节一致（有 E2E 测试保证）。 |
 | 📸 **浏览器内自检** | skill 原本用 headless Chrome 跑 `capture.mjs` / `drive.mjs` / `lines.mjs`，这里改为在页面内渲染和截图，参数不变，截图回传给模型。 |
 | 🛡️ **安全隔离** | 生成的代码只在 opaque origin 的沙箱 iframe / Worker 中运行，读不到 API Key，也无法联网。 |
@@ -65,7 +65,7 @@
 ### 在线使用
 
 1. 打开 **https://milkfoam-l.github.io/anatomy-studio/**
-2. 点右上角「设置接口」，选择协议和服务商：默认预设赞助商 [ApophisCode](https://www.apophis.uk/)（填入 Key 即可用），也可以选「Anthropic 官方」或「自定义」填你自己的接口；填好 API Key 和模型后点「测试连接」
+2. 点右上角「设置接口」，选择协议和服务商：默认预设赞助商 [ApophisCode](https://www.apophis.uk/)（两种协议都可用，填入 Key 即可），也可以选「自定义」填官方接口或你自己的中转站；填好 API Key 和模型后点「测试连接」
 3. 描述想讲清楚的概念并给出真实数字（例如「令牌桶限流，桶容量 20，每秒补充 5 个」），点「生成图解」
 
 > API Key 默认只存在当前标签页（sessionStorage）；勾选「记住」后才写入 localStorage。Key 只发往你填写的接口。

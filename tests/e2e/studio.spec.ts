@@ -120,6 +120,7 @@ test("settings start on the sponsor relay and let anyone switch to their own end
   await expect(page.getByRole("button", { name: "自定义", exact: true })).toHaveAttribute("aria-pressed", "true");
 
   await page.getByRole("button", { name: "OpenAI 兼容", exact: true }).click();
-  await expect(page.getByRole("button", { name: "Anthropic 官方", exact: true })).toHaveCount(0);
   await expect(baseUrl).toHaveValue("https://speed.apophis.uk");
+  await expect(page.getByRole("button", { name: "ApophisCode", exact: true })).toHaveAttribute("aria-pressed", "true");
+  await expect(sponsor).toBeVisible();
 });

@@ -10,7 +10,7 @@ describe("provider presets", () => {
 
   it("recognises a preset by origin, with or without a path", () => {
     expect(presetOf("https://speed.apophis.uk/v1", "openai")).toBe("sponsor");
-    expect(presetOf("https://api.anthropic.com/", "anthropic")).toBe("anthropic");
+    expect(presetOf("https://speed.apophis.uk/", "anthropic")).toBe("sponsor");
   });
 
   it("treats other, empty or malformed addresses as custom", () => {
@@ -19,8 +19,8 @@ describe("provider presets", () => {
     expect(presetOf("not a url", "openai")).toBe("custom");
   });
 
-  it("does not offer the official Anthropic address for the OpenAI protocol", () => {
-    expect(presetOf("https://api.anthropic.com", "openai")).toBe("custom");
-    expect(PRESETS.filter((p) => p.protocols.includes("openai")).map((p) => p.id)).toEqual(["sponsor"]);
+  it("offers the sponsor for both protocols and nothing else", () => {
+    expect(PRESETS.map((p) => [p.id, p.protocols])).toEqual([["sponsor", ["anthropic", "openai"]]]);
+    expect(presetOf("https://api.anthropic.com", "anthropic")).toBe("custom");
   });
 });
