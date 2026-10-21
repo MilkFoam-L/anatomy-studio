@@ -103,3 +103,23 @@ test("when the endpoint fails after a page exists, the page is kept and the run 
   await page.getByRole("button", { name: "继续" }).click();
   await expect(page.getByText("用表盘读出量块高度。")).toBeVisible({ timeout: 60_000 });
 });
+
+test("settings start on the sponsor relay and let anyone switch to their own endpoint", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "接口设置" }).click();
+  const baseUrl = page.getByLabel("接口地址");
+  await expect(baseUrl).toHaveValue("https://speed.apophis.uk");
+  const sponsor = page.getByRole("complementary", { name: "赞助商" });
+  await expect(sponsor.getByRole("link", { name: /获取 API Key/ })).toHaveAttribute("href", "https://www.apophis.uk/");
+
+  await page.getByRole("button", { name: "自定义", exact: true }).click();
+  await expect(baseUrl).toHaveValue("");
+  await expect(baseUrl).toBeFocused();
+  await expect(sponsor).toHaveCount(0);
+  await baseUrl.fill("https://relay.example");
+  await expect(page.getByRole("button", { name: "自定义", exact: true })).toHaveAttribute("aria-pressed", "true");
+
+  await page.getByRole("button", { name: "OpenAI 兼容", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Anthropic 官方", exact: true })).toHaveCount(0);
+  await expect(baseUrl).toHaveValue("https://speed.apophis.uk");
+});

@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
-import { EyeIcon, EyeOffIcon, Loader2Icon, PlugZapIcon, RefreshCwIcon, ShieldCheckIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowUpRightIcon, EyeIcon, EyeOffIcon, Loader2Icon, PlugZapIcon, RefreshCwIcon, ShieldCheckIcon } from "lucide-react";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,6 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { listModels, ping } from "@/llm/client";
 import { apiRoot } from "@/llm/anthropic";
 import type { Effort, Protocol } from "@/llm/types";
+import { PRESETS, SPONSOR, presetOf, type PresetId } from "@/lib/providers";
 import { activeProvider, type Profile, type StudioSettings } from "@/lib/settings";
 import { Segmented } from "./Segmented";
 
@@ -37,11 +39,29 @@ const PROTOCOL_INFO: Record<Protocol, { placeholder: string; path: string; auth:
 
 const message = (error: unknown) => (error instanceof TypeError ? "接口地址格式不正确" : error instanceof Error ? error.message : String(error));
 
+function SponsorCard() {
+  return (
+    <aside aria-label="赞助商" className="grid gap-1.5 rounded-md border border-signal/30 bg-signal/5 p-3">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-sm font-semibold">{SPONSOR.name}</span>
+        <Badge variant="outline" className="border-signal/40 text-signal">赞助</Badge>
+        <a href={SPONSOR.site} target="_blank" rel="noopener noreferrer sponsored" className={buttonVariants({ variant: "outline", size: "xs", className: "ml-auto" })}>
+          获取 API Key
+          <ArrowUpRightIcon />
+        </a>
+      </div>
+      <p className="text-xs font-medium text-ink-soft">{SPONSOR.tagline}</p>
+      <p className="text-xs leading-relaxed text-muted-foreground">{SPONSOR.blurb}</p>
+    </aside>
+  );
+}
+
 export function SettingsDialog({ open, settings, onOpenChange, onSave }: SettingsDialogProps) {
   const [draft, setDraft] = useState(settings);
   const [showKey, setShowKey] = useState(false);
   const [models, setModels] = useState<string[]>([]);
   const [busy, setBusy] = useState<"models" | "ping" | null>(null);
+  const baseUrlInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (open) setDraft(settings);
@@ -55,6 +75,14 @@ export function SettingsDialog({ open, settings, onOpenChange, onSave }: Setting
   const switchProtocol = (protocol: Protocol) => {
     set("protocol", protocol);
     setModels([]);
+  };
+  const preset = presetOf(profile.baseUrl, draft.protocol);
+  const choosePreset = (id: PresetId) => {
+    setModels([]);
+    const chosen = PRESETS.find((p) => p.id === id);
+    if (chosen) return setField("baseUrl", chosen.baseUrl);
+    if (preset !== "custom") setField("baseUrl", "");
+    requestAnimationFrame(() => baseUrlInput.current?.focus());
   };
   const endpoint = (() => {
     try {
@@ -127,8 +155,21 @@ export function SettingsDialog({ open, settings, onOpenChange, onSave }: Setting
           </div>
 
           <div className="grid gap-2">
+            <Segmented<PresetId>
+              label="服务商"
+              value={preset}
+              onChange={choosePreset}
+              options={[
+                ...PRESETS.filter((p) => p.protocols.includes(draft.protocol)).map((p) => ({ value: p.id, label: p.label })),
+                { value: "custom", label: "自定义", hint: "填写你自己的接口地址" },
+              ]}
+            />
+            {preset === "sponsor" && <SponsorCard />}
+          </div>
+
+          <div className="grid gap-2">
             <Label htmlFor="base-url">接口地址</Label>
-            <Input id="base-url" inputMode="url" autoComplete="off" spellCheck={false} placeholder={info.placeholder} value={profile.baseUrl} onChange={(e) => setField("baseUrl", e.target.value)} />
+            <Input ref={baseUrlInput} id="base-url" inputMode="url" autoComplete="off" spellCheck={false} placeholder={info.placeholder} value={profile.baseUrl} onChange={(e) => setField("baseUrl", e.target.value)} />
             <p className="break-all text-xs text-muted-foreground">
               填根地址即可，结尾的 /v1 会自动处理。实际请求 <span className="font-mono">POST {endpoint}</span>
             </p>

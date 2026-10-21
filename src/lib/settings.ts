@@ -1,4 +1,5 @@
 import type { Effort, Protocol, ProviderSettings } from "../llm/types";
+import { SPONSOR } from "./providers";
 
 /** What one protocol needs. Each protocol keeps its own, since relays usually issue
  *  different keys (and often different addresses) for /v1/messages and /v1/chat/completions. */
@@ -18,8 +19,8 @@ const SECRET = "anatomy-studio.apiKey";
 const secretKey = (protocol: Protocol) => `${SECRET}.${protocol}`;
 
 const DEFAULT_PROFILES: Record<Protocol, Profile> = {
-  anthropic: { baseUrl: "https://api.anthropic.com", apiKey: "", model: "claude-opus-5-5", maxTokens: 32000, effort: "" },
-  openai: { baseUrl: "", apiKey: "", model: "claude-opus-5-5", maxTokens: 32000, effort: "" },
+  anthropic: { baseUrl: SPONSOR.baseUrl, apiKey: "", model: "claude-opus-5-5", maxTokens: 32000, effort: "" },
+  openai: { baseUrl: SPONSOR.baseUrl, apiKey: "", model: "claude-opus-5-5", maxTokens: 32000, effort: "" },
 };
 
 export const DEFAULT_SETTINGS: StudioSettings = { protocol: "anthropic", profiles: DEFAULT_PROFILES, rememberKey: false };

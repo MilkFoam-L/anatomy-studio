@@ -12,6 +12,7 @@ import type { JobOptions } from "@/agent/prompt";
 import { useRun, type Delivered } from "@/hooks/useRun";
 import { getEngine } from "@/lib/engine";
 import { deleteEntry, listEntries, type HistoryEntry } from "@/lib/history";
+import { SPONSOR } from "@/lib/providers";
 import { activeProvider, isConfigured, loadSettings, saveSettings, type StudioSettings } from "@/lib/settings";
 import type { Stage } from "@/stage/stage";
 
@@ -129,7 +130,16 @@ export default function App() {
               </a>
               （MIT）。本站为纯静态页面，密钥只保存在你的浏览器。
             </p>
-            <p className="font-mono">Anatomy Studio · MIT</p>
+            <p className="flex flex-wrap items-center gap-x-3 gap-y-1">
+              <span>
+                赞助商{" "}
+                <a className="font-medium text-foreground underline underline-offset-4 hover:text-signal" href={SPONSOR.site} target="_blank" rel="noopener noreferrer sponsored">
+                  {SPONSOR.name}
+                </a>
+                <span className="hidden sm:inline"> · {SPONSOR.tagline}</span>
+              </span>
+              <span className="font-mono">Anatomy Studio · MIT</span>
+            </p>
           </div>
         </footer>
       </div>
