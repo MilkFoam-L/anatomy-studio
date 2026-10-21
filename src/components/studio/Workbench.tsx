@@ -104,7 +104,7 @@ export const Workbench = memo(function Workbench({ state, stage, canRevise, onRe
   }
 
   return (
-    <section aria-label="生成过程与结果" className="plate overflow-hidden">
+    <section aria-label="生成过程与结果" className={cn("plate overflow-hidden", !result && "flex flex-col lg:absolute lg:inset-0")}>
       <header className="flex flex-wrap items-center gap-x-4 gap-y-2 border-b px-5 py-3">
         <span className="label-caps">{state.status === "done" ? "Fig. 1 · 完成" : state.status === "error" ? (result ? "未完成" : "失败") : state.status === "stopped" ? "已停止" : "工作中"}</span>
         <span className="min-w-0 flex-1 truncate text-sm font-medium">{result?.title || state.job?.prompt}</span>
@@ -173,10 +173,10 @@ export const Workbench = memo(function Workbench({ state, stage, canRevise, onRe
           {canRevise && <ReviseBar onRevise={onRevise} />}
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <div className="min-w-0 border-b p-3 lg:border-b-0 lg:border-r">
+        <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+          <div className="flex min-h-0 min-w-0 flex-col border-b p-3 lg:border-b-0 lg:border-r">
             <div className="label-caps mb-2 px-2">工作日志</div>
-            <RunLog items={state.items} waitingSince={state.waitingSince} />
+            <RunLog items={state.items} waitingSince={state.waitingSince} className="lg:max-h-none lg:min-h-0 lg:flex-1" />
             {(state.status === "error" || state.status === "stopped") && (
               <div className="m-2 flex flex-wrap items-center gap-3 rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm">
                 <span className="min-w-0 flex-1 break-words">{state.error}</span>
@@ -193,7 +193,7 @@ export const Workbench = memo(function Workbench({ state, stage, canRevise, onRe
               </div>
             )}
           </div>
-          <div className={cn("min-w-0 p-3", theme === "dark" ? "bg-[#161614]" : "bg-background")}>
+          <div className={cn("min-h-0 min-w-0 p-3 lg:overflow-y-auto", theme === "dark" ? "bg-[#161614]" : "bg-background")}>
             <div className="label-caps mb-2 px-2">检查台 · 实时</div>
             {stage && <StageView stage={stage} />}
             {state.lastShot && lastShot ? (

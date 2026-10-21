@@ -116,7 +116,7 @@ function Waiting({ since }: { since: number }) {
   );
 }
 
-export const RunLog = memo(function RunLog({ items, waitingSince = null }: { items: LogItem[]; waitingSince?: number | null }) {
+export const RunLog = memo(function RunLog({ items, waitingSince = null, className }: { items: LogItem[]; waitingSince?: number | null; className?: string }) {
   const [shot, setShot] = useState<Shot | null>(null);
   const scroller = useRef<HTMLDivElement>(null);
   const pinned = useRef(true);
@@ -134,7 +134,7 @@ export const RunLog = memo(function RunLog({ items, waitingSince = null }: { ite
           const el = e.currentTarget;
           pinned.current = el.scrollHeight - el.scrollTop - el.clientHeight < 48;
         }}
-        className="max-h-[28rem] overflow-y-auto pr-1"
+        className={cn("max-h-[28rem] overflow-y-auto pr-1", className)}
         aria-live="polite"
       >
         {items.length === 0 && waitingSince === null ? (

@@ -87,8 +87,8 @@ export default function App() {
         <TopBar configured={isConfigured(settings)} model={profile.model} host={`${settings.protocol === "openai" ? "OpenAI 兼容" : "Anthropic"} · ${hostOf(profile.baseUrl)}`} onSettings={openSettings} />
 
         <main className="mx-auto grid max-w-7xl grid-cols-1 gap-14 px-4 pb-20 pt-8 sm:px-6 sm:pt-12">
-          <div className={`grid min-w-0 grid-cols-1 gap-6 lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)] ${state.status === "idle" ? "lg:items-stretch" : "items-start"}`}>
-            <div className="grid min-w-0 gap-6 lg:sticky lg:top-20">
+          <div className="grid min-w-0 grid-cols-1 gap-6 lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)] lg:items-stretch">
+            <div className="grid min-w-0 gap-6 lg:sticky lg:top-20 lg:self-start">
               <div>
                 <h1 className="text-balance text-3xl font-semibold leading-[1.1] tracking-tight sm:text-[2.6rem]">
                   把一个概念，
@@ -101,7 +101,7 @@ export default function App() {
               </div>
               <Composer running={running} onSubmit={submit} onStop={stop} />
             </div>
-            <div id="workbench" className="min-w-0 scroll-mt-20">
+            <div id="workbench" className="relative min-w-0 scroll-mt-20">
               <Workbench
                 state={state}
                 stage={stage}

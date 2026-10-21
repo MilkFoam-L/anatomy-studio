@@ -48,3 +48,13 @@ for (const width of WIDTHS) {
     if (process.env.LAYOUT_SHOTS) await page.locator("#workbench").screenshot({ path: `${process.env.LAYOUT_SHOTS}/running-${width}.png` });
   });
 }
+
+test("the running workbench ends level with the composer on wide screens", async ({ page }) => {
+  await page.setViewportSize({ width: 1336, height: 900 });
+  await page.goto("/");
+  await scriptedRun(page);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  if (process.env.LAYOUT_SHOTS) await page.screenshot({ path: `${process.env.LAYOUT_SHOTS}/running-aligned.png` });
+  const bottom = (selector: string) => page.locator(selector).evaluate((el) => Math.round(el.getBoundingClientRect().bottom));
+  expect(Math.abs((await bottom("#workbench > section")) - (await bottom("section[aria-labelledby=composer-title]")))).toBeLessThanOrEqual(1);
+});
