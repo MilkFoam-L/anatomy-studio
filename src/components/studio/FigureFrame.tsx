@@ -49,7 +49,9 @@ export function FittedFigureFrame({ minWidth, minHeight, className, ...frame }: 
     const iframe = box?.firstElementChild as HTMLIFrameElement | null;
     if (!box || !iframe) return;
     const fit = () => {
-      const { width, height } = box.getBoundingClientRect();
+      // Layout size, not getBoundingClientRect: an ancestor's transform (a dialog's zoom-in)
+      // would otherwise be baked into the scale.
+      const { offsetWidth: width, offsetHeight: height } = box;
       const scale = Math.min(1, width / minWidth, height / minHeight) || 1;
       iframe.style.width = `${width / scale}px`;
       iframe.style.height = `${height / scale}px`;

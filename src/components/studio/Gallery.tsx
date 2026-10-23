@@ -2,7 +2,7 @@ import { memo, useEffect, useMemo, useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { galleryUrl, loadGallery, type GalleryItem } from "@/lib/assets";
 import { cn } from "@/lib/utils";
-import { FigureFrame } from "./FigureFrame";
+import { FigureFrame, FittedFigureFrame } from "./FigureFrame";
 import { Segmented } from "./Segmented";
 
 const THUMBS = import.meta.glob<string>("../../assets/thumbs/*.jpg", { eager: true, import: "default" });
@@ -17,6 +17,19 @@ const NOTES: Record<string, string> = {
   "turning-dial": "3D 模式：真实转动的密码盘和机械手。",
   "push-button": "按钮与弹簧的力学小样。",
 };
+
+// Smallest viewport each example page lays out in without scrolling (its figure plus caption).
+const PAGE_WIDTH = 800;
+const PAGE_HEIGHTS: Record<string, number> = {
+  "dial-indicator": 730,
+  "desk-computer": 880,
+  "arcade-cabinet": 1260,
+  "raptor-engine": 1170,
+  "ripple-tank": 1242,
+  "turning-dial": 810,
+  "push-button": 780,
+};
+const pageHeightOf = (name: string) => PAGE_HEIGHTS[name] ?? 1260;
 
 export const Gallery = memo(function Gallery() {
   const [items, setItems] = useState<GalleryItem[]>([]);
@@ -71,7 +84,11 @@ export const Gallery = memo(function Gallery() {
             <DialogTitle className="font-mono text-sm">{open}</DialogTitle>
             <DialogDescription className="truncate text-xs">{open ? NOTES[open] : ""}</DialogDescription>
           </div>
-          {open && <FigureFrame title={open} src={galleryUrl(fileOf(open))} className="h-[min(80vh,820px)]" />}
+          {open && (
+            <div style={{ height: `min(84vh, ${pageHeightOf(open)}px)` }}>
+              <FittedFigureFrame title={open} src={galleryUrl(fileOf(open))} minWidth={PAGE_WIDTH} minHeight={pageHeightOf(open)} className="size-full" />
+            </div>
+          )}
         </DialogContent>
       </Dialog>
     </section>
